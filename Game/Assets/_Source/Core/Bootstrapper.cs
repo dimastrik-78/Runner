@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class Bootstrapper : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
+    [SerializeField] private GameObject[] tilePrefabs;
+    [SerializeField] private int countSpawn;
+    [SerializeField] private Transform spawnPoint;
 
-    void Update()
+    private Generation _generation;
+
+    void Awake()
     {
-        
+        _generation = new Generation();
+        ObjectPool pool = new ObjectPool(spawnPoint);
+        _generation.InstTiles(pool, tilePrefabs, countSpawn);
     }
 }
