@@ -1,24 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Generation
+namespace LevelSystem
 {
-    private int count;
-
-    public Generation() { }
-
-    public void InstTiles(ObjectPool pool, GameObject[] objects, int countSpawn)
+    public class Generation
     {
-        for (int i = 0; i < countSpawn; i++)
-        {
-            pool.AddTile(Object.Instantiate(objects[count]));
-            pool.TileMoving();
+        private int _count;
 
-            count++;
-            if (count >= objects.Length)
+        public void InstTiles(ObjectPool pool, GameObject[] objects, int countSpawn)
+        {
+            for (int i = 0; i < countSpawn; i++)
             {
-                count = 0;
+                pool.AddTile(Object.Instantiate(objects[_count]));
+                pool.TileMoving();
+
+                _count++;
+                if (_count >= objects.Length)
+                {
+                    _count = 0;
+                }
             }
         }
     }

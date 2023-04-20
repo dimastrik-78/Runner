@@ -1,19 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
+using LevelSystem;
 using UnityEngine;
 
-public class Bootstrapper : MonoBehaviour
+namespace Core
 {
-    [SerializeField] private GameObject[] tilePrefabs;
-    [SerializeField] private int countSpawn;
-    [SerializeField] private Transform spawnPoint;
-
-    private Generation _generation;
-
-    void Awake()
+    public class Bootstrapper : MonoBehaviour
     {
-        _generation = new Generation();
-        ObjectPool pool = new ObjectPool(spawnPoint);
-        _generation.InstTiles(pool, tilePrefabs, countSpawn);
+        [SerializeField] private Distance distance;
+        [SerializeField] private GameObject[] tilePrefabs;
+        [SerializeField] private int countSpawn;
+        [SerializeField] private Transform spawnPoint;
+
+        private Generation _generation;
+
+        void Awake()
+        {
+            _generation = new Generation();
+            ObjectPool pool = new ObjectPool(spawnPoint);
+            _generation.InstTiles(pool, tilePrefabs, countSpawn);
+            distance.SetPool(pool);
+        }
     }
 }

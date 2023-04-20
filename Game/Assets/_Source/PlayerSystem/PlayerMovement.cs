@@ -1,13 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+namespace PlayerSystem
 {
-    [SerializeField] private float speed;
-
-    private void FixedUpdate()
+    public class PlayerMovement : MonoBehaviour
     {
-        transform.position = new Vector3(0, 1, transform.position.z + speed * Time.deltaTime);
+        [SerializeField] private float speed;
+
+        private void FixedUpdate()
+        {
+            transform.position = new Vector3(0, 1, transform.position.z + speed * Time.deltaTime);
+        }
     }
 }
