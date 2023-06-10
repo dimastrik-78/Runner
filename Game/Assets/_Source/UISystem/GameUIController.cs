@@ -5,7 +5,8 @@ namespace UISystem
 {
     public class GameUIController
     {
-        private GameUIView _view;
+        private readonly GameUIView _view;
+        
         private int _score;
 
         public GameUIController(GameUIView view)

@@ -1,6 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using Utils;
 
 namespace PlayerSystem
 {
@@ -11,6 +11,9 @@ namespace PlayerSystem
         [SerializeField] private float speed;
         [SerializeField] private float jump;
         [SerializeField] private LayerMask obstacle;
+
+        private const float MOVE_RIGHT = 1.5f;
+        private const float MOVE_LEFT = -1.5f;
 
         private PlayerInputs _playerInput;
         private Movement _movement;
@@ -37,7 +40,7 @@ namespace PlayerSystem
 
         private void OnCollisionEnter(Collision other)
         {
-            if (obstacle == (obstacle | (1 << other.gameObject.layer)))
+            if (obstacle.Contains(other.gameObject.layer))
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
@@ -47,8 +50,8 @@ namespace PlayerSystem
         {
             _playerInput = new PlayerInputs();
 
-            _playerInput.Action.MoveRight.performed += _ => _movement.SidewaysMovement(1.5f, true);
-            _playerInput.Action.MoveLeft.performed += _ => _movement.SidewaysMovement(-1.5f,  false);
+            _playerInput.Action.MoveRight.performed += _ => _movement.SidewaysMovement(MOVE_RIGHT, true);
+            _playerInput.Action.MoveLeft.performed += _ => _movement.SidewaysMovement(MOVE_LEFT,  false);
             
             _playerInput.Action.Jump.performed += _ => _movement.Jump();
             
