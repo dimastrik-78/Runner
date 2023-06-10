@@ -1,28 +1,29 @@
+using BulletSystem;
 using LevelSystem;
 using UISystem;
 using UnityEngine;
+using Zenject;
 
 namespace Core
 {
     public class Bootstrapper : MonoBehaviour
     {
-        [SerializeField] private Distance distance;
         [SerializeField] private GameObject[] tilePrefabs;
-        [SerializeField] private int countSpawn;
-        [SerializeField] private Transform spawnPoint;
-        [SerializeField] private GameUIView gameUIView;
-
-        private Generation _generation;
-        private ObjectPool _pool;
+        [SerializeField] private GameObject bulletPrefab;
+        [SerializeField] private int countTileSpawn;
+        [SerializeField] private int countBulletSpawn;
+        
+        [Inject] private Generation _generation;
+        [Inject] private TilePool _tilePool;
+        [Inject] private BulletPool _bulletPool;
+        [Inject] private GameUIController _gameUIController;
 
         void Awake()
         {
-            // _generation = new Generation();
-            // ObjectPool pool = new ObjectPool(spawnPoint);
-            _generation.InstTiles(_pool, tilePrefabs, countSpawn);
-            distance.SetPool(_pool);
+            _generation.InstTiles(_tilePool, tilePrefabs, countTileSpawn);
+            _generation.InstBullets(_bulletPool, bulletPrefab, countBulletSpawn);
 
-            StartCoroutine(new GameUIController(gameUIView).AddScore());
+            StartCoroutine(_gameUIController.AddScore());
         }
     }
 }

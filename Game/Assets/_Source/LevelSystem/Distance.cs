@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using Zenject;
 
 namespace LevelSystem
 {
@@ -9,7 +10,7 @@ namespace LevelSystem
 
         private const float DISTANCE = 40f;
         
-        private ObjectPool _pool;
+        [Inject] private TilePool _pool;
 
         private void Start()
         {
@@ -22,15 +23,10 @@ namespace LevelSystem
 
             if (Vector3.Distance(transform.position, player.position) < DISTANCE)
             {
-                _pool.TileMoving();
+                _pool.ObjectMoving();
             }
 
             StartCoroutine(Check());
-        }
-
-        public void SetPool(ObjectPool pool)
-        {
-            _pool = pool;
         }
     }
 }

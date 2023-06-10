@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using Zenject;
 
 namespace UISystem
 {
@@ -9,6 +10,7 @@ namespace UISystem
         
         private int _score;
 
+        [Inject]
         public GameUIController(GameUIView view)
         {
             _view = view;

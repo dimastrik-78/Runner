@@ -1,5 +1,5 @@
+using BulletSystem;
 using UnityEngine;
-using Zenject;
 
 namespace LevelSystem
 {
@@ -7,19 +7,26 @@ namespace LevelSystem
     {
         private int _count;
 
-        [Inject]
-        public void InstTiles(ObjectPool pool, GameObject[] objects, int countSpawn)
+        public void InstTiles(TilePool pool, GameObject[] objects, int countSpawn)
         {
             for (int i = 0; i < countSpawn; i++)
             {
-                pool.AddTile(Object.Instantiate(objects[_count]));
-                pool.TileMoving();
+                pool.AddObject(Object.Instantiate(objects[_count]));
+                pool.ObjectMoving();
 
                 _count++;
                 if (_count >= objects.Length)
                 {
                     _count = 0;
                 }
+            }
+        }
+
+        public void InstBullets(BulletPool pool, GameObject prefab, int countSpawn)
+        {
+            for (int i = 0; i < countSpawn; i++)
+            {
+                pool.AddObject(Object.Instantiate(prefab));
             }
         }
     }

@@ -1,5 +1,5 @@
 {
-    "name": "Player",
+    "name": "PlayerInputs",
     "maps": [
         {
             "name": "Action",
@@ -36,6 +36,15 @@
                     "name": "Squat",
                     "type": "Button",
                     "id": "b45670e4-d374-4bef-91c4-0a48a6aab938",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Shoot",
+                    "type": "Button",
+                    "id": "9ee5675e-b5d8-430c-a0cd-a0b272be80a4",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -84,6 +93,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ebf7df3c-57af-4289-bb05-e60dc875c0bd",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

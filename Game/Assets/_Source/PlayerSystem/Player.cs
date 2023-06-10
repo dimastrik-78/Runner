@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using BulletSystem;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utils;
+using Zenject;
 
 namespace PlayerSystem
 {
@@ -10,6 +12,7 @@ namespace PlayerSystem
         [SerializeField] private CapsuleCollider playerCollider;
         [SerializeField] private float speed;
         [SerializeField] private float jump;
+        [SerializeField] private AudioSource source;
         [SerializeField] private LayerMask obstacle;
 
         private const float MOVE_RIGHT = 1.5f;
@@ -17,6 +20,8 @@ namespace PlayerSystem
 
         private PlayerInputs _playerInput;
         private Movement _movement;
+
+        [Inject] private BulletPool _pool;
 
         private void Awake()
         {
@@ -56,6 +61,9 @@ namespace PlayerSystem
             _playerInput.Action.Jump.performed += _ => _movement.Jump();
             
             _playerInput.Action.Squat.performed += _ => StartCoroutine(_movement.Squat());
+            
+            _playerInput.Action.Shoot.performed += _ => _pool.ObjectMoving();
+            _playerInput.Action.Shoot.performed += _ => source.Play();
 
             _movement = new Movement(rb, transform, playerCollider, speed, jump);
         }

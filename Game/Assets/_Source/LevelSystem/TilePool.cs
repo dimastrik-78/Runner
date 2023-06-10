@@ -1,34 +1,35 @@
 using System.Collections.Generic;
+using Interface;
 using UnityEngine;
 using Zenject;
 
 namespace LevelSystem
 {
-    public class ObjectPool
+    public class TilePool : IObjectPool
     {
-        private const float TRAVELDISTANCE = 10;
+        private const float TRAVEL_DISTANCE = 10;
         
-        private List<GameObject> _tilePool = new();
-        private Transform _spawnPoint;
-        private System.Random _random = new();
+        private readonly List<GameObject> _tilePool = new();
+        private readonly Transform _spawnPoint;
+        private readonly System.Random _random = new();
 
         [Inject]
-        public ObjectPool(Transform spawnPoint) 
+        public TilePool(Transform spawnPoint) 
         {
             _spawnPoint = spawnPoint;
         }
 
-        public void TileMoving()
+        public void ObjectMoving()
         {
             GameObject tile = CheckPool();
             tile.transform.position = _spawnPoint.position;
-            _spawnPoint.position = new Vector3(0, 0, _spawnPoint.position.z + tile.transform.localScale.z * TRAVELDISTANCE);
+            _spawnPoint.position = new Vector3(0, 0, _spawnPoint.position.z + tile.transform.localScale.z * TRAVEL_DISTANCE);
             tile.SetActive(true);
         }
 
-        public void AddTile(GameObject tile)
+        public void AddObject(GameObject bullet)
         {
-            _tilePool.Add(tile);
+            _tilePool.Add(bullet);
         }
 
         private GameObject CheckPool()
@@ -51,6 +52,7 @@ namespace LevelSystem
             return Object.Instantiate(_tilePool[_random.Next(0, _tilePool.Count)]);
         }
 
-        private GameObject SelectTile(List<GameObject> tiles) => tiles[_random.Next(0, tiles.Count)];
+        private GameObject SelectTile(List<GameObject> tiles) 
+            => tiles[_random.Next(0, tiles.Count)];
     }
 }
