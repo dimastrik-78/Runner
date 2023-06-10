@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 namespace LevelSystem
 {
@@ -6,6 +7,7 @@ namespace LevelSystem
     {
         private int _count;
 
+        [Inject]
         public void InstTiles(ObjectPool pool, GameObject[] objects, int countSpawn)
         {
             for (int i = 0; i < countSpawn; i++)

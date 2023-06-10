@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace LevelSystem
 {
@@ -11,6 +12,7 @@ namespace LevelSystem
         private Transform _spawnPoint;
         private System.Random _random = new();
 
+        [Inject]
         public ObjectPool(Transform spawnPoint) 
         {
             _spawnPoint = spawnPoint;
