@@ -10,12 +10,16 @@ namespace BulletSystem
         private readonly GameObject _prefabBullet;
         private readonly List<GameObject> _bulletPool = new();
         private readonly Transform _spawnPoint;
+        private readonly Transform _parent;
+        
+        [Inject] private BulletSpawner _spawner;
 
         [Inject]
-        public BulletPool(GameObject prefabBullet, Transform spawnPoint)
+        public BulletPool(GameObject prefabBullet, Transform spawnPoint, Transform parent)
         {
             _prefabBullet = prefabBullet;
             _spawnPoint = spawnPoint;
+            _parent = parent;
         }
 
         public void ObjectMoving()
@@ -40,8 +44,9 @@ namespace BulletSystem
                 }
             }
             
-            _bulletPool.Add(Object.Instantiate(_prefabBullet));
-            return _bulletPool[^1];
+            _spawner.Spawn(_parent, 1);
+            // _bulletPool.Add(Object.Instantiate(_prefabBullet));
+            return CheckPool();
         }
     }
 }

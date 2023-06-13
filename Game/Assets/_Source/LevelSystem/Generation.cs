@@ -2,7 +2,7 @@
 
 namespace LevelSystem
 {
-    public abstract class Generation
+    public class Generation
     {
         public void InstTiles(TilePool pool, GameObject[] objects, int countSpawn)
         {

@@ -13,6 +13,8 @@ namespace Core
         [SerializeField] private Transform spawnPoint;
         [SerializeField] private Transform playerPoint;
         [SerializeField] private GameObject bulletPrefab;
+        [SerializeField] private Transform target;
+        [SerializeField] private Transform bulletParent;
 
         public override void InstallBindings()
         {
@@ -28,11 +30,10 @@ namespace Core
             Container.Bind<TilePool>()
                 .AsCached()
                 .WithArguments(spawnPoint)
-                .NonLazy(); 
-
+                .NonLazy();
             Container.Bind<BulletPool>()
                 .AsCached()
-                .WithArguments(bulletPrefab, playerPoint)
+                .WithArguments(bulletPrefab, playerPoint, bulletParent)
                 .NonLazy();
 
             Container.Bind<Distance>()
@@ -51,7 +52,11 @@ namespace Core
                 .FromInstance(bulletPrefab)
                 .AsCached()
                 .NonLazy();
-            Container.BindFactory<Bullet, Bullet.BulletFactory>()
+            Container.Bind<Transform>()
+                .FromInstance(target)
+                .AsCached()
+                .NonLazy();
+            Container.BindFactory<Transform, Bullet, Bullet.BulletFactory>()
                 .FromComponentInNewPrefab(bulletPrefab);
         }
     }

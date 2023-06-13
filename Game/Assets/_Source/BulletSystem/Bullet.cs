@@ -5,7 +5,7 @@ using Zenject;
 
 namespace BulletSystem
 {
-    public abstract class Bullet : MonoBehaviour
+    public class Bullet : MonoBehaviour
     {
         [SerializeField] private Rigidbody rb;
         [SerializeField] private float speed;
@@ -13,16 +13,23 @@ namespace BulletSystem
         [SerializeField] private AudioSource source;
         [SerializeField] private LayerMask player;
 
+        private Transform _target;
+
+        [Inject]
+        private void Construct(Transform target)
+        {
+            _target = target;
+        }
+
         private void OnEnable()
         {
             rb.AddForce(Vector3.forward * speed, ForceMode.Impulse);
             StartCoroutine(LifeTime());
         }
 
-        private IEnumerator LifeTime()
+        private void Update()
         {
-            yield return new WaitForSeconds(lifeTime);
-            BulletDisable();
+            transform.position = Vector3.Lerp(transform.position, _target.position, speed * Time.deltaTime);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -34,6 +41,12 @@ namespace BulletSystem
             }
         }
 
+        private IEnumerator LifeTime()
+        {
+            yield return new WaitForSeconds(lifeTime);
+            BulletDisable();
+        }
+        
         private void BulletDisable()
         {
             rb.velocity = Vector3.zero;
@@ -41,6 +54,6 @@ namespace BulletSystem
             StopAllCoroutines();
         }
         
-        public abstract class BulletFactory : PlaceholderFactory<Bullet> { }
+        public class BulletFactory : PlaceholderFactory<Transform, Bullet> { }
     }
 }
