@@ -25,9 +25,9 @@ namespace BulletSystem
             tile.SetActive(true);
         }
 
-        public void AddObject(GameObject bullet)
+        public void AddObject(GameObject gameObject)
         {
-            _bulletPool.Add(bullet);
+            _bulletPool.Add(gameObject);
         }
 
         private GameObject CheckPool()

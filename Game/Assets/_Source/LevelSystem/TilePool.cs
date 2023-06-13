@@ -27,9 +27,9 @@ namespace LevelSystem
             tile.SetActive(true);
         }
 
-        public void AddObject(GameObject bullet)
+        public void AddObject(GameObject gameObject)
         {
-            _tilePool.Add(bullet);
+            _tilePool.Add(gameObject);
         }
 
         private GameObject CheckPool()

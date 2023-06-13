@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using UnityEngine;
 using Utils;
+using Zenject;
 
 namespace BulletSystem
 {
-    public class Bullet : MonoBehaviour
+    public abstract class Bullet : MonoBehaviour
     {
         [SerializeField] private Rigidbody rb;
         [SerializeField] private float speed;
@@ -39,5 +40,7 @@ namespace BulletSystem
             gameObject.SetActive(false);
             StopAllCoroutines();
         }
+        
+        public abstract class BulletFactory : PlaceholderFactory<Bullet> { }
     }
 }

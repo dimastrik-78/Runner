@@ -1,32 +1,22 @@
-using BulletSystem;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace LevelSystem
 {
-    public class Generation
+    public abstract class Generation
     {
-        private int _count;
-
         public void InstTiles(TilePool pool, GameObject[] objects, int countSpawn)
         {
+            int count = 0;
             for (int i = 0; i < countSpawn; i++)
             {
-                pool.AddObject(Object.Instantiate(objects[_count]));
+                pool.AddObject(Object.Instantiate(objects[count]));
                 pool.ObjectMoving();
 
-                _count++;
-                if (_count >= objects.Length)
+                count++;
+                if (count >= objects.Length)
                 {
-                    _count = 0;
+                    count = 0;
                 }
-            }
-        }
-
-        public void InstBullets(BulletPool pool, GameObject prefab, int countSpawn)
-        {
-            for (int i = 0; i < countSpawn; i++)
-            {
-                pool.AddObject(Object.Instantiate(prefab));
             }
         }
     }

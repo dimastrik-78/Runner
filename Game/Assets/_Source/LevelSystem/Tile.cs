@@ -3,7 +3,7 @@ using Utils;
 
 namespace LevelSystem
 {
-    public class TileDisable : MonoBehaviour
+    public class Tile : MonoBehaviour
     {
         [SerializeField] private LayerMask player;
 

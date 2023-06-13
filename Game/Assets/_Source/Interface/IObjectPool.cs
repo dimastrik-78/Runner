@@ -6,6 +6,6 @@ namespace Interface
     {
         void ObjectMoving();
 
-        void AddObject(GameObject bullet);
+        void AddObject(GameObject gameObject);
     }
 }

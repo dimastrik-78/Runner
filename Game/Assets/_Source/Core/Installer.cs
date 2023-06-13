@@ -1,5 +1,4 @@
 using BulletSystem;
-using Interface;
 using LevelSystem;
 using UISystem;
 using UnityEngine;
@@ -13,8 +12,8 @@ namespace Core
         [SerializeField] private Distance distance;
         [SerializeField] private Transform spawnPoint;
         [SerializeField] private Transform playerPoint;
-        [SerializeField] private GameObject prefBullet;
-        
+        [SerializeField] private GameObject bulletPrefab;
+
         public override void InstallBindings()
         {
             Container.Bind<GameUIView>()
@@ -33,18 +32,27 @@ namespace Core
 
             Container.Bind<BulletPool>()
                 .AsCached()
-                .WithArguments(prefBullet, playerPoint)
+                .WithArguments(bulletPrefab, playerPoint)
                 .NonLazy();
 
             Container.Bind<Distance>()
                 .FromInstance(distance)
                 .AsSingle()
                 .NonLazy();
-
+            
             Container.Bind<Generation>()
                 .AsSingle()
                 .NonLazy();
 
+            Container.Bind<BulletSpawner>()
+                .AsSingle()
+                .NonLazy();
+            Container.Bind<GameObject>()
+                .FromInstance(bulletPrefab)
+                .AsCached()
+                .NonLazy();
+            Container.BindFactory<Bullet, Bullet.BulletFactory>()
+                .FromComponentInNewPrefab(bulletPrefab);
         }
     }
 }
